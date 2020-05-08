@@ -26,9 +26,9 @@ class AbstractMelonOrder():
         return total
 
 
-    def mark_shipped(self):
+    def mark_shipped(self, shipped):
         """Confirm that an order has been shipped."""
-        self.shipped = True
+        self.shipped = shipped
 
 
 class DomesticMelonOrder(AbstractMelonOrder):
@@ -49,3 +49,13 @@ class InternationalMelonOrder(AbstractMelonOrder):
     def get_country_code(self):
         """Return the country code."""
         return self.country_code
+
+
+class GovernmentMelonOrder(AbstractMelonOrder):
+
+    def __init__(self, species, qty):
+        super().__init__(species, qty, "government", 0.00)
+        self.passed_inspection = False
+
+    def mark_inspection(self, passed):
+        self.passed_inspection = passed
