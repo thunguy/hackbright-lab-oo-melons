@@ -4,11 +4,21 @@ import random
 import datetime
 
 
+class TooManyMelonsError(ValueError):
+    
+    def __init__(self):
+        super().__init__("No more than 100 melons!")
+
+
 class AbstractMelonOrder():
     """Abstract base class that other MelonOrders will inherit from"""
-    
+
     def __init__(self, species, qty, order_type, tax):
         """Initialize melon order attributes."""
+        
+        if qty > 100:
+            raise TooManyMelonsError
+
         self.species = species
         self.qty = qty
         self.order_type = order_type
